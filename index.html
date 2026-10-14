@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Filepunch</title>
+<meta name="description" content="Your device's files, one punch away. Peer-to-peer file access to a folder on a Linux device behind NAT. No open ports, no VPN, no bytes through a server.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><span class="dot"></span>Filepunch</a>
+    <a class="gh" href="https://github.com/filepunch/filepunch"><svg class="ghi" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span><em>v0.3.0</em></a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero wrap">
+  <a class="pill" href="https://github.com/filepunch/filepunch/releases/tag/v0.3.0"><span class="pulse"></span>Coming soon &middot; Open source &middot; v0.3.0 on GitHub</a>
+  <h1>Your device's files,<br>one punch away.</h1>
+  <p class="lead"><span class="row">Peer-to-peer file access to a folder on a Linux device behind NAT.</span> <span class="row nos">No open ports, no VPN, no bytes through a server.</span></p>
+  <div class="btns">
+    <a class="btn primary" href="https://github.com/filepunch/filepunch">View on GitHub</a>
+    <a class="btn" href="https://github.com/filepunch/filepunch/blob/main/docs/protocol.md">Read the protocol</a>
+  </div>
+  <p class="oss">Free and open source under the Apache-2.0 licence, with code, specs and threat model on <a href="https://github.com/filepunch/filepunch">GitHub</a>.</p>
+</section>
+
+<section class="wrap diagram-wrap reveal">
+  <figure class="diagram">
+    <svg viewBox="0 0 720 400" role="img" aria-labelledby="dg-t dg-d">
+      <title id="dg-t">How a Filepunch session is set up</title>
+      <desc id="dg-d">Client and device each send a short signaling pulse up to the relay. Then a direct beam of data flows straight between client and device, through a hole in the NAT wall, while the relay carries nothing.</desc>
+      <defs>
+        <filter id="glow" x="-30%" y="-150%" width="160%" height="400%">
+          <feGaussianBlur stdDeviation="5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <clipPath id="beamclip"><rect x="208" y="280" width="322" height="36"/></clipPath>
+      </defs>
+
+      <!-- static faint signaling tracks -->
+      <path class="track" d="M128 250 C128 180 250 150 320 112"/>
+      <path class="track" d="M605 250 C605 180 470 150 400 112"/>
+      <!-- animated signaling pulses -->
+      <path class="sig" pathLength="100" d="M128 250 C128 180 250 150 320 112"/>
+      <path class="sig" pathLength="100" d="M605 250 C605 180 470 150 400 112"/>
+
+      <!-- relay cloud -->
+      <g class="relay">
+        <path class="node cloud" d="M296 114 H424 a30 30 0 0 0 8 -59 a44 44 0 0 0 -86 -14 a34 34 0 0 0 -52 30 a23 23 0 0 0 2 43 z"/>
+        <text x="360" y="86" text-anchor="middle" class="lbl">relay</text>
+      </g>
+
+      <!-- NAT wall -->
+      <g class="wall">
+        <rect x="486" y="200" width="26" height="184" rx="4"/>
+        <path class="mortar" d="M486 230 h26 M486 260 h26 M486 330 h26 M486 360 h26 M499 200 v30 M499 260 v20 M499 330 v30"/>
+        <text x="499" y="190" text-anchor="middle" class="lbl small">NAT</text>
+      </g>
+
+      <!-- client -->
+      <g class="endpoint">
+        <rect class="node" x="48" y="250" width="160" height="96" rx="14"/>
+        <text x="128" y="294" text-anchor="middle" class="lbl">Client</text>
+        <text x="128" y="318" text-anchor="middle" class="lbl small">CLI &middot; Go &middot; browser</text>
+      </g>
+
+      <!-- device -->
+      <g class="endpoint">
+        <rect class="node" x="530" y="250" width="150" height="96" rx="14"/>
+        <text x="605" y="294" text-anchor="middle" class="lbl">Device</text>
+        <text x="605" y="318" text-anchor="middle" class="lbl small">filepunchd</text>
+      </g>
+
+      <!-- direct data beam -->
+      <g class="beam">
+        <rect class="band" x="208" y="288" width="322" height="20" rx="10"/>
+        <line class="core" x1="208" y1="298" x2="530" y2="298" filter="url(#glow)"/>
+        <circle class="hole" cx="499" cy="298" r="19"/>
+        <g clip-path="url(#beamclip)">
+          <g class="lane r">
+            <rect class="pk" x="192" y="291" width="16" height="5" rx="2.5"/>
+            <rect class="pk" x="192" y="291" width="16" height="5" rx="2.5"/>
+            <rect class="pk" x="192" y="291" width="16" height="5" rx="2.5"/>
+            <rect class="pk" x="192" y="291" width="16" height="5" rx="2.5"/>
+          </g>
+          <g class="lane l">
+            <rect class="pk" x="530" y="300" width="16" height="5" rx="2.5"/>
+            <rect class="pk" x="530" y="300" width="16" height="5" rx="2.5"/>
+            <rect class="pk" x="530" y="300" width="16" height="5" rx="2.5"/>
+            <rect class="pk" x="530" y="300" width="16" height="5" rx="2.5"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Signaling goes through the relay. Files never do.</figcaption>
+  </figure>
+
+  <ol class="steps">
+    <li class="reveal"><span class="n">1</span>A small agent on the device only connects outward. No port is opened.</li>
+    <li class="reveal"><span class="n">2</span>Your backend gives a client a short-lived pass for one device and one folder.</li>
+    <li class="reveal"><span class="n">3</span>A tiny relay introduces the two. From then on they talk directly.</li>
+    <li class="reveal"><span class="n">4</span>Files move straight between client and device, encrypted. The relay never sees them.</li>
+  </ol>
+</section>
+
+<section class="wrap cards">
+  <div class="card reveal">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13M14 5l3 3-3 3M20 16H7M10 13l-3 3 3 3"/></svg>
+    <h2>Direct.</h2>
+    <p>Files move between client and device in both directions, encrypted end to end. No server can read them.</p>
+  </div>
+  <div class="card reveal">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4M12 15v3"/></svg>
+    <h2>Locked.</h2>
+    <p>Signed tokens bound to the client's certificate; paths are jailed.</p>
+  </div>
+  <div class="card reveal">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="4"/><path d="M11 12l9-1M16 11l1 3M19 11l1 3M3 20a5 5 0 0 1 10 0"/></svg>
+    <h2>Yours.</h2>
+    <p>Your backend issues tokens; no hosted service, no accounts.</p>
+  </div>
+</section>
+
+<section class="wrap tiles">
+  <div class="tile reveal">
+    <svg class="tico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="17" r="2"/><path d="M8.5 13.5a5 5 0 0 1 7 0M5.5 10.5a9 9 0 0 1 13 0M2.5 7.5a13 13 0 0 1 19 0"/></svg>
+    <h3>Same network, no relay</h3>
+    <p>Finds the device on the LAN, no server needed.</p>
+  </div>
+  <div class="tile reveal">
+    <svg class="tico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4zM14 6v12"/></svg>
+    <h3>Works offline</h3>
+    <p>A ticket fetched earlier opens a session with no internet.</p>
+  </div>
+  <div class="tile reveal">
+    <svg class="tico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v14M12 2l-3 3M12 2l3 3M12 16v6M7 9a2 2 0 1 0 0 .01M17 7v2l-5 3M7 11l5 3"/><circle cx="17" cy="7" r="1.5"/></svg>
+    <h3>USB sticks and SD cards</h3>
+    <p>Plugged-in media appear inside the share right away.</p>
+  </div>
+</section>
+
+<section class="wrap who reveal">
+  <p class="for">Built for device fleets and kiosks, field equipment, home servers, and any backend that wants file access to its devices without hosting a file service.</p>
+  <p class="one">Filepunch does one thing: move files to and from a device. <a href="https://github.com/filepunch/filepunch#non-goals">not a sync tool, a fleet dashboard, a VPN or a cloud service</a>, so it fits beside what you already run.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><a href="https://github.com/filepunch/filepunch/blob/main/LICENSE">Apache-2.0</a> &middot; <a href="https://github.com/filepunch/filepunch">GitHub</a></p>
+    <a class="made" href="https://bootzero.one" aria-label="Made by bootzero.one"><span>Made by</span><svg class="bz" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1224 380">
+<g transform="translate(40,40) scale(0.65217) translate(-620,-180)">
+<path d="M0 0C0.8 0.6 1.5 1.2 2.3 1.7C3.9 2.9 5.5 4.1 7.1 5.3C7.8 5.9 8.6 6.5 9.4 7.1C14.7 10.9 20.3 14.3 25.8 17.7C23.4 20.4 20.9 22 17.8 23.7C-3.5 37.2-15.6 58.5-22.6 82.2C-22.8 83-23 83.8-23.3 84.6C-27.5 100.2-28.7 115.9-28.6 132.1C-28.6 133-28.6 133.9-28.6 134.8C-28.5 148-28 160.8-25.2 173.7C-25.1 174.1-25.1 174.1-24.8 175.9C-22.9 185-20.1 193.4-16.2 201.7C-15.7 202.8-15.3 203.9-14.8 205C-5.4 225.3 9.7 242.7 31 250.6C47.3 256.3 63.7 254 79.2 247.2C95.9 238.2 107.1 223.2 115.8 206.7C116.2 205.9 116.7 205.1 117.2 204.2C120.3 198 122.1 191.4 123.9 184.7C124.1 183.9 124.4 183 124.6 182C128.7 166.1 130.3 150.4 130.2 134.1C130.2 133.6 130.2 133.6 130.2 131.4C130.2 117.2 129.1 103.6 125.8 89.7C125.6 89 125.4 88.3 125.3 87.5C119.8 63.4 107 39 86 24.9C82.7 22.8 79.5 21 75.8 19.7C77 16 78 15.7 81.3 13.7C87.1 10.2 92.6 6.5 98 2.7C99.9 1.3 101.9 0 103.8-1.3C104.4-1.7 105-2.1 105.6-2.5C108.4-4.3 110.4-5.3 113.7-5.2C117.4-4 120.8-2.6 124.3-0.8C124.6-0.6 124.6-0.6 126.4 0.3C150.1 12.6 166.2 32 177.8 55.7C178.3 56.8 178.8 57.9 179.4 59C196.6 96 198.5 146.8 186.8 185.7C186.5 186.6 186.3 187.4 186 188.2C182.4 200.3 178 211.7 171.8 222.7C171.2 223.7 170.7 224.7 170.1 225.8C165.6 233.3 159.9 239.5 153.8 245.7C153.1 246.5 152.3 247.2 151.6 248C147.2 252.1 142.5 255.4 137.4 258.5C137.1 258.7 137.1 258.7 135.6 259.6C124.7 266.1 112.3 268.4 100.1 271C88.9 273.5 78.2 276.7 68.6 283C68 283.4 67.4 283.7 66.8 284.1C62.1 287.3 57.9 291.1 53.9 295.2C51.8 296.7 51.8 296.7 49.7 296.7C47.2 295.5 45.8 293.8 43.9 291.7C31.2 278.6 12.5 272.9-4.9 269.4C-30.7 263.9-51.3 251.5-66.1 229.1C-81.9 204.3-91.3 174.7-91.4 145.2C-91.4 144.7-91.4 144.7-91.4 142.2C-91.4 140.1-91.5 138-91.5 135.9C-91.5 132.8-91.5 129.6-91.5 126.5C-91.6 114.8-91 104.1-88.2 92.7C-88 91.6-87.7 90.5-87.4 89.3C-79.1 54.8-63 23.2-31.8 3.9C-11.3-8.4-11.3-8.4 0 0Z" fill="currentColor" transform="translate(717.21923828125,318.255126953125)"/>
+<path d="M0 0C24.8-1.1 45.3 7.1 64 23.5C72 30.9 78.3 38.7 83.9 48.1C84.4 48.9 84.8 49.7 85.3 50.5C92.4 62.8 93.7 75.3 95 89.2C95.1 89.7 95.1 89.7 95.3 92C96.9 109.6 96.9 109.6 93.9 114.1C89 113.6 85.2 112.6 80.7 110.4C79.6 109.8 78.5 109.3 77.4 108.7C76.2 108.2 75.1 107.6 73.9 107C72.8 106.5 71.6 105.9 70.4 105.3C67.6 103.9 64.7 102.5 61.9 101.1C62 100.8 62 100.8 62.5 99.1C62.6 98.6 62.6 98.6 63.3 96.4C63.6 95.5 63.9 94.7 64.1 93.8C66.6 85 66.9 76.3 62.8 68C59.2 61.8 54.9 57.4 47.9 55.1C38.6 54.2 32.3 55 24.7 60.3C18.2 66.7 16.8 73.1 16.3 81.8C16.2 84.2 16 86.6 15.9 89.1C8.3 89.1 0.7 89.1-7.1 89.1C-7.1 87.1-7 85.2-6.9 83.2C-7 73.8-8.7 67.6-15.3 60.8C-21.8 54.8-26.8 54.5-35.6 54.8C-42 55.4-45.4 57.1-49.9 61.8C-56.7 70.3-57 78.4-56.1 89.1C-55.4 93.2-54.3 97.1-53.1 101.1C-53.4 101.2-53.4 101.2-54.9 102C-57.7 103.3-60.5 104.6-63.2 105.9C-64.2 106.4-65.1 106.8-66.1 107.3C-67.1 107.7-68 108.2-68.9 108.6C-69.8 109-70.7 109.5-71.7 109.9C-73.7 110.9-75.6 111.9-77.6 112.9C-80.6 114.3-82 114.2-85.1 113.1C-86.8 111.4-86.2 109.1-86.2 106.8C-86.3 105.7-86.3 104.6-86.3 103.4C-86.2 97.6-86.2 91.9-86.1 86.1C-86.1 85.4-86.1 84.6-86.1 83.9C-85.7 61.6-73.9 41.1-58.9 25.4C-48.9 15.8-37.8 9.4-25.1 4.1C-24.3 3.7-23.5 3.4-22.7 3C-15.4 0.2-7.7 0.4 0 0Z" fill="currentColor" transform="translate(763.1162109375,187.9013671875)"/>
+<path d="M0 0C3 2.6 3.9 3.4 4.6 7.4C3.9 11.4 2.9 12.7-0.3 14.9C-0.9 15.3-1.4 15.6-2 16C-2.8 16.5-3.7 17.1-4.6 17.6C-14 21.4-23.9 22.6-34 23C-34.7 23-35.4 23.1-36.1 23.1C-52.7 23.7-72.4 23.8-85.8 12.5C-87 11-87 11-87.4 8.1C-86.9 4.2-85.7 2.9-83 0C-75.6-4.8-67.6-7.3-59-9C-58.2-9.2-57.5-9.3-56.7-9.5C-37.8-12.9-16.3-10.4 0 0Z" fill="currentColor" transform="translate(746,609)"/>
+<path d="M0 0C1.2 0 2.3 0 3.5 0C11.5 0.1 18.6 0.6 26.2 3.3C27.2 3.7 28.3 4 29.3 4.4C35.4 6.7 41.9 9.3 46.2 14.3C47.1 17.9 47.1 17.9 46.2 21.3C37.6 31.3 21.5 32.2 9.2 33.3C-7.3 34.5-28.5 33.9-42.5 24C-44.8 21.3-44.8 21.3-45.7 17.9C-44.4 12.5-41.5 10.2-36.8 7.3C-24.8 1.9-13.1-0.1 0 0Z" fill="currentColor" transform="translate(830.8125,598.6875)"/>
+<path d="M0 0C2.8 1 5.3 2.3 7.9 3.7C8.6 4.1 9.3 4.4 10 4.8C13 6.4 15.9 8 18.9 9.6C24.2 12.4 28.8 13.7 34.8 14.3C37 15 37 15 38.3 17.1C38.5 17.7 38.8 18.3 39 19C32.8 24.6 26 29 18.9 33.2C18 33.8 17.2 34.3 16.3 34.8C13.9 36.2 11.4 37.6 9 39C8.3 39.4 7.6 39.8 6.8 40.2C2.4 42.7-0.8 43.7-6 43C-8.6 42-10.8 41-13.2 39.8C-13.6 39.6-13.6 39.6-15.3 38.7C-21.1 35.6-26.6 32.3-32.2 28.9C-33 28.4-33.8 27.9-34.6 27.4C-39.3 24.4-42.7 21.5-46 17C-43.6 14.6-42.7 14.6-39.5 14.1C-33.9 13.1-29.3 11.1-24.3 8.6C-23.5 8.2-22.7 7.9-21.9 7.5C-18.3 5.7-14.8 3.9-11.4 1.7C-7.4-0.3-4.3-0.8 0 0Z" fill="currentColor" transform="translate(771,288)"/>
+<path d="M0 0C2.8 1 5.3 2.3 7.9 3.7C8.6 4.1 9.3 4.4 10 4.8C13 6.4 15.9 8 18.9 9.6C24.2 12.4 28.8 13.7 34.8 14.3C37 15 37 15 38.3 17.1C38.5 17.7 38.8 18.3 39 19C35.6 20.7 31.8 20 28.1 19.9C19.3 19.9 10.3 19.8 2.2 23.7C-2.9 25.8-6.8 24.5-11.8 22.6C-18.4 20.3-25.2 19.9-32.1 19.3C-33.4 19.2-34.8 19.1-36.1 18.9C-39.4 18.6-42.7 18.3-46 18C-44 15-44 15-42 14.4C-41.1 14.3-40.3 14.2-39.5 14.1C-33.9 13.1-29.3 11.1-24.3 8.6C-23.5 8.2-22.7 7.9-21.9 7.5C-18.3 5.7-14.8 3.9-11.4 1.7C-7.4-0.3-4.3-0.8 0 0Z" fill="currentColor" transform="translate(771,288)"/>
+<path d="M0 0C3.7 2 5.7 3.5 8 7C8.7 12.6 8.7 17.5 6.3 22.6C2.8 26.3 0.8 27.9-4.4 28.1C-8.5 26.9-10.3 25.7-12.9 22.4C-15.2 17.4-14.9 12.3-14 7C-10.9 0.8-6.7-0.6 0 0Z" fill="currentColor" transform="translate(734,256)"/>
+<path d="M0 0C3.8 2.9 3.8 2.9 5 6C5.9 12.5 5.8 17.5 2 23C-0.6 25.8-2 26-5.9 26.5C-9.4 26.4-10 26-12.9 23.8C-16.4 19.2-17.5 16-17.3 10.2C-16.7 5.9-14.1 3.3-11.3 0.1C-7.5-1.7-4-1.2 0 0Z" fill="currentColor" transform="translate(810,257)"/>
+<path d="M0 0C5.2-0.1 9.9 0.2 15 1C15 1.3 15 1.7 15 2C12.9 2.2 12.9 2.2 2 3C1.3 2 0.7 1 0 0Z" fill="currentColor" transform="translate(726,306)"/>
+<path d="M0 0C0 3 0 3-2 6C-3 5.7-4 5.3-5 5C-4 2-4 2-1.9 0.8C-1.3 0.5-0.7 0.3 0 0Z" fill="currentColor" transform="translate(798,333)"/>
+<rect x="747" y="367" width="42" height="180" rx="21" fill="currentColor"/>
+</g><path fill="currentColor" d="M335.9 233.7Q328 233.7 321.7 230.4Q315.4 227.2 311.7 221.5Q307.9 215.8 307.6 208.7V182.9Q307.9 175.8 311.7 170.2Q315.5 164.6 321.8 161.5Q328.1 158.3 335.9 158.3Q345.9 158.3 353.9 163.3Q361.8 168.2 366.4 176.8Q371 185.3 371 196.1Q371 206.8 366.4 215.3Q361.8 223.8 353.9 228.8Q345.9 233.7 335.9 233.7ZM295.6 232.2V123.8H315.3V177.6L312 195.1L315.1 212.8V232.2ZM332.5 215.6Q337.9 215.6 342 213.1Q346.1 210.6 348.5 206.2Q350.9 201.7 350.9 196Q350.9 190.3 348.5 185.8Q346.1 181.4 342 178.9Q337.8 176.4 332.4 176.4Q327 176.4 322.9 178.9Q318.7 181.4 316.4 185.8Q314.1 190.2 314.1 196Q314.1 201.8 316.4 206.2Q318.7 210.6 322.9 213.1Q327.1 215.6 332.5 215.6ZM416.3 233.8Q405.4 233.8 396.6 228.8Q387.8 223.8 382.7 215.1Q377.6 206.5 377.6 195.8Q377.6 185.2 382.7 176.7Q387.8 168.2 396.6 163.2Q405.4 158.2 416.3 158.2Q427.3 158.2 436.1 163.2Q444.9 168.1 450 176.7Q455.1 185.2 455.1 195.8Q455.1 206.5 450 215.1Q444.9 223.8 436.1 228.8Q427.4 233.8 416.3 233.8ZM416.3 215.4Q421.8 215.4 426.1 212.9Q430.3 210.5 432.7 206Q435 201.6 435 195.9Q435 190.2 432.6 185.9Q430.2 181.5 426 179.1Q421.8 176.6 416.3 176.6Q410.9 176.6 406.7 179.1Q402.4 181.6 400.1 185.9Q397.7 190.2 397.7 195.9Q397.7 201.6 400.1 206Q402.4 210.5 406.7 212.9Q410.9 215.4 416.3 215.4ZM500.2 233.8Q489.3 233.8 480.5 228.8Q471.7 223.8 466.5 215.1Q461.4 206.5 461.4 195.8Q461.4 185.2 466.5 176.7Q471.6 168.2 480.4 163.2Q489.2 158.2 500.1 158.2Q511.2 158.2 519.9 163.2Q528.7 168.1 533.9 176.7Q539 185.2 539 195.8Q539 206.5 533.9 215.1Q528.8 223.8 520 228.8Q511.2 233.8 500.2 233.8ZM500.1 215.4Q505.7 215.4 509.9 212.9Q514.2 210.5 516.5 206Q518.9 201.6 518.9 195.9Q518.9 190.2 516.4 185.9Q514 181.5 509.9 179.1Q505.7 176.6 500.1 176.6Q494.7 176.6 490.5 179.1Q486.3 181.6 483.9 185.9Q481.5 190.2 481.5 195.9Q481.5 201.6 483.9 206Q486.3 210.5 490.5 212.9Q494.7 215.4 500.1 215.4ZM560.6 232.2V129.7H580.4V232.2ZM543.8 177V159.8H597.2V177ZM601.8 221 640.2 171H663.8L625.4 221ZM601.8 232.2V221L617.4 215.1H662.9V232.2ZM604.5 176.9V159.8H663.8V171L648.2 176.9ZM709.9 233.8Q698.6 233.8 689.7 228.9Q680.8 224 675.6 215.4Q670.5 206.8 670.5 196Q670.5 185.2 675.6 176.7Q680.6 168.1 689.3 163.2Q698 158.2 708.6 158.2Q719.1 158.2 727.1 162.9Q735.1 167.5 739.7 175.7Q744.2 183.9 744.2 194.3Q744.2 196.3 744 198.3Q743.8 200.3 743.3 202.8L682.3 202.9V188.3L734.1 188.2L726.1 194.2Q725.9 187.8 723.8 183.5Q721.8 179.1 718 176.8Q714.2 174.6 708.6 174.6Q702.7 174.6 698.4 177.1Q694.1 179.7 691.8 184.4Q689.4 189.1 689.4 195.7Q689.4 202.3 691.9 207.2Q694.4 212 699 214.6Q703.6 217.2 709.8 217.2Q715.3 217.2 719.8 215.3Q724.4 213.4 727.7 209.7L739.2 221.3Q733.9 227.5 726.3 230.6Q718.7 233.8 709.9 233.8ZM754.9 232.2V159.8H774.6V232.2ZM774.6 192.2 766.9 187Q768.3 173.8 774.8 166Q781.2 158.3 793.3 158.3Q798.6 158.3 802.8 160Q807 161.8 810.4 165.6L798.2 179.8Q796.4 177.9 794.1 177Q791.8 176.2 788.8 176.2Q782.5 176.2 778.5 180.1Q774.6 184 774.6 192.2ZM852.5 233.8Q841.6 233.8 832.8 228.8Q824 223.8 818.9 215.1Q813.8 206.5 813.8 195.8Q813.8 185.2 818.9 176.7Q824 168.2 832.8 163.2Q841.6 158.2 852.5 158.2Q863.5 158.2 872.3 163.2Q881.1 168.1 886.2 176.7Q891.3 185.2 891.3 195.8Q891.3 206.5 886.2 215.1Q881.1 223.8 872.3 228.8Q863.6 233.8 852.5 233.8ZM852.5 215.4Q858 215.4 862.3 212.9Q866.5 210.5 868.9 206Q871.2 201.6 871.2 195.9Q871.2 190.2 868.8 185.9Q866.4 181.5 862.2 179.1Q858 176.6 852.5 176.6Q847.1 176.6 842.9 179.1Q838.6 181.6 836.3 185.9Q833.9 190.2 833.9 195.9Q833.9 201.6 836.3 206Q838.6 210.5 842.9 212.9Q847.1 215.4 852.5 215.4Z"/>
+<path fill="currentColor" d="M915.8 233.8Q910.5 233.8 907 230.2Q903.5 226.6 903.5 221.3Q903.5 216 907 212.4Q910.5 208.9 915.8 208.9Q921.2 208.9 924.6 212.4Q928.1 216 928.1 221.3Q928.1 226.6 924.6 230.2Q921.2 233.8 915.8 233.8ZM979.1 233.8Q968.2 233.8 959.4 228.8Q950.6 223.8 945.5 215.1Q940.4 206.5 940.4 195.8Q940.4 185.2 945.5 176.7Q950.6 168.2 959.4 163.2Q968.2 158.2 979.1 158.2Q990.1 158.2 998.9 163.2Q1007.7 168.1 1012.8 176.7Q1017.9 185.2 1017.9 195.8Q1017.9 206.5 1012.8 215.1Q1007.7 223.8 998.9 228.8Q990.2 233.8 979.1 233.8ZM979.1 215.4Q984.6 215.4 988.9 212.9Q993.1 210.5 995.5 206Q997.8 201.6 997.8 195.9Q997.8 190.2 995.4 185.9Q993 181.5 988.8 179.1Q984.6 176.6 979.1 176.6Q973.7 176.6 969.5 179.1Q965.2 181.6 962.9 185.9Q960.5 190.2 960.5 195.9Q960.5 201.6 962.9 206Q965.2 210.5 969.5 212.9Q973.7 215.4 979.1 215.4ZM1077.7 232.2V190.7Q1077.7 184.2 1073.6 180.2Q1069.6 176.1 1063.3 176.1Q1059 176.1 1055.7 177.9Q1052.4 179.8 1050.5 183.1Q1048.7 186.4 1048.7 190.7L1041 186.7Q1041 178.3 1044.7 171.9Q1048.4 165.5 1054.9 161.9Q1061.4 158.3 1069.6 158.3Q1077.6 158.3 1083.9 162.2Q1090.2 166.2 1093.8 172.6Q1097.4 179.1 1097.4 186.3V232.2ZM1028.9 232.2V159.8H1048.7V232.2ZM1146.4 233.8Q1135.1 233.8 1126.2 228.9Q1117.3 224 1112.1 215.4Q1107 206.8 1107 196Q1107 185.2 1112.1 176.7Q1117.1 168.1 1125.8 163.2Q1134.5 158.2 1145.1 158.2Q1155.6 158.2 1163.6 162.9Q1171.6 167.5 1176.2 175.7Q1180.7 183.9 1180.7 194.3Q1180.7 196.3 1180.5 198.3Q1180.3 200.3 1179.8 202.8L1118.8 202.9V188.3L1170.6 188.2L1162.6 194.2Q1162.4 187.8 1160.3 183.5Q1158.3 179.1 1154.5 176.8Q1150.7 174.6 1145.1 174.6Q1139.2 174.6 1134.9 177.1Q1130.6 179.7 1128.3 184.4Q1125.9 189.1 1125.9 195.7Q1125.9 202.3 1128.4 207.2Q1130.9 212 1135.5 214.6Q1140.1 217.2 1146.3 217.2Q1151.8 217.2 1156.3 215.3Q1160.9 213.4 1164.2 209.7L1175.7 221.3Q1170.4 227.5 1162.8 230.6Q1155.2 233.8 1146.4 233.8Z"/>
+</svg></a>
+  </div>
+</footer>
+
+</body>
+</html>
