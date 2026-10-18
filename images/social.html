@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Filepunch social card</title>
+<!--
+  Source of site/social.png, the 1200 x 630 image that link previews show.
+  render.sh turns it into the PNG with headless Chrome. The colors are the
+  dark theme of site/style.css.
+-->
+<style>
+  :root {
+    --bg: #0a0e17;
+    --bg2: #111828;
+    --fg: #e9edf5;
+    --muted: #8d97ab;
+    --line-strong: rgba(255,255,255,0.18);
+    --accent: #3ff0b5;
+    --accent-soft: rgba(63,240,181,0.14);
+    --glow: rgba(63,240,181,0.55);
+    --wall: #2a3449;
+    --grid: rgba(255,255,255,0.045);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Cantarell, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding: 52px 64px 44px;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 44px 44px;
+    background-position: -10px -10px;
+  }
+  .top { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 16px; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; }
+  .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 22px var(--glow); }
+  .pill { font-size: 22px; padding: 10px 22px; border: 2px solid var(--accent); border-radius: 999px; background: var(--accent-soft); font-weight: 600; }
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+  h1 { margin: 0; font-size: 92px; line-height: 1.04; letter-spacing: -0.035em; font-weight: 800; }
+  .lead { margin: 30px 0 0; font-size: 31px; color: var(--muted); letter-spacing: -0.005em; }
+  svg { display: block; width: 1072px; height: 116px; overflow: visible; }
+  .node { fill: var(--bg2); stroke: var(--line-strong); stroke-width: 2; }
+  .lbl { fill: var(--fg); font: 600 24px Cantarell, system-ui, sans-serif; }
+  .band { fill: var(--accent-soft); }
+  .core { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+  .pk { fill: var(--accent); }
+  .wall { fill: var(--wall); }
+  .mortar { stroke: var(--bg); stroke-width: 2; fill: none; }
+  .small { fill: var(--muted); font: 500 17px Cantarell, system-ui, sans-serif; }
+  .hole { fill: var(--bg); stroke: var(--accent); stroke-width: 3; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand"><span class="dot"></span>Filepunch</div>
+    <div class="pill">Open source</div>
+  </div>
+  <main>
+    <h1>Your device's files,<br>one punch away.</h1>
+    <p class="lead">Peer-to-peer file access to a folder on a Linux device behind NAT.</p>
+  </main>
+  <svg viewBox="0 0 1072 116" aria-hidden="true">
+    <defs>
+      <filter id="glow" filterUnits="userSpaceOnUse" x="150" y="40" width="772" height="44">
+        <feGaussianBlur stdDeviation="4" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <rect class="node" x="1" y="30" width="170" height="64" rx="14"/>
+    <text class="lbl" x="86" y="70" text-anchor="middle">Client</text>
+    <rect class="node" x="901" y="30" width="170" height="64" rx="14"/>
+    <text class="lbl" x="986" y="70" text-anchor="middle">Device</text>
+    <text class="small" x="834" y="14" text-anchor="middle">NAT</text>
+    <rect class="wall" x="820" y="22" width="28" height="94" rx="4"/>
+    <path class="mortar" d="M820 44 h28 M820 72 h28 M820 100 h28 M834 22 v22 M834 72 v28"/>
+    <rect class="band" x="172" y="50" width="728" height="24" rx="12"/>
+    <line class="core" x1="172" y1="62" x2="900" y2="62" filter="url(#glow)"/>
+    <circle class="hole" cx="834" cy="62" r="20"/>
+    <rect class="pk" x="250" y="54" width="22" height="6" rx="3"/>
+    <rect class="pk" x="390" y="54" width="22" height="6" rx="3"/>
+    <rect class="pk" x="530" y="54" width="22" height="6" rx="3"/>
+    <rect class="pk" x="670" y="54" width="22" height="6" rx="3"/>
+    <rect class="pk" x="320" y="64" width="22" height="6" rx="3"/>
+    <rect class="pk" x="460" y="64" width="22" height="6" rx="3"/>
+    <rect class="pk" x="600" y="64" width="22" height="6" rx="3"/>
+    <rect class="pk" x="740" y="64" width="22" height="6" rx="3"/>
+  </svg>
+</body>
+</html>
