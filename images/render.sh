@@ -73,7 +73,9 @@ def shrink(src, dst, size, colors, mode):
     print(f"site/{dst}: {size[0]} x {size[1]}, {os.path.getsize(path)} bytes")
 
 
-shrink("social.png", "social.png", (1200, 630), 32, "RGB")
+# On the social card, 30 colors look the same as 32 and make the file smaller.
+# With fewer than about 28, its glows look speckled when zoomed in.
+shrink("social.png", "social.png", (1200, 630), 30, "RGB")
 shrink("icon.png", "apple-touch-icon.png", (180, 180), 32, "RGB")
 shrink("favicon.png", "favicon.png", (32, 32), 16, "RGBA")
 EOF

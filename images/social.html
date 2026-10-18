@@ -7,6 +7,11 @@
   Source of site/social.png, the 1200 x 630 image that link previews show.
   render.sh turns it into the PNG with headless Chrome. The colors are the
   dark theme of site/style.css.
+
+  The words repeat the page: the first two parts of the badge above the
+  title, the tagline and the first line of the lead. When one of them
+  changes on the page, change it here and in the og:image:alt line of
+  site/index.html, then run render.sh again.
 -->
 <style>
   :root {
@@ -61,7 +66,7 @@
 <body>
   <div class="top">
     <div class="brand"><span class="dot"></span>Filepunch</div>
-    <div class="pill">Open source</div>
+    <div class="pill">Coming soon &middot; Open source</div>
   </div>
   <main>
     <h1>Your device's files,<br>one punch away.</h1>

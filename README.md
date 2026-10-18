@@ -21,7 +21,7 @@ Plain HTML, one stylesheet, no build step, no JavaScript, no external fonts, no 
 
 The wording is drawn from the code repository's `README.md`, `docs/security.md`, `docs/protocol.md`, `docs/signaling.md` and `examples/`. When those change, change the page; the site must not claim anything the docs do not.
 
-Some of the wording appears more than once. The `description` and `og:description` lines in the head of `index.html` repeat the tagline and the lead. `images/social.html` and the `og:image:alt` line repeat the tagline and the first line of the lead. When you change one, change the others.
+Some of the wording appears more than once. The `description` and `og:description` lines in the head of `index.html` repeat the tagline and the lead. The social card (`images/social.html`, drawn into `site/social.png`) and the `og:image:alt` line repeat three things: the tagline, the first line of the lead, and the first two parts of the badge above the title, "Coming soon · Open source". When you change one, change the others. After a change to the card, run `images/render.sh` again (see Images).
 
 ## Link previews
 

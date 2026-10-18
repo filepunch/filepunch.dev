@@ -49,6 +49,7 @@ Three terms used below:
 - **Now:** "Coming soon · Open source · v0.3.0 on GitHub"
 - **What is true today (2026-10-18):** github.com/filepunch/filepunch is public, but it holds only a one-line README and no tags. The badge's link to the v0.3.0 tag, the "Read the protocol" button and the "Apache-2.0" link in the footer return 404.
 - **Suggested:** keep "Coming soon" until the code and the v0.3.0 tag are on GitHub, then change the badge to "Open source · v0.3.0 on GitHub".
+- **Also change, when "Coming soon" goes:** the social card says "Coming soon · Open source" too. Edit that text in `images/social.html` and in the `og:image:alt` line of `site/index.html` (line 17), then run `sh images/render.sh` to draw `site/social.png` again.
 
 ### 7. Broken sentence (line 163)
 
