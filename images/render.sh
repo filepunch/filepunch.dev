@@ -31,20 +31,50 @@ fi
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 
+# Runs Chrome. When the timeout command exists, it stops Chrome after $limit
+# seconds, so a Chrome that hangs cannot hang this script.
+limit=60
+run_chrome() {
+  if command -v timeout >/dev/null 2>&1; then
+    timeout "$limit" "$chrome" "$@"
+  else
+    "$chrome" "$@"
+  fi
+}
+
 # shot URL WIDTH HEIGHT SCHEME OUT [more Chrome flags]
 # SCHEME is 0 to draw the dark colors and 1 to draw the light colors.
+# Chrome's messages go to a log, which is printed when Chrome draws nothing.
 shot() {
   url=$1 w=$2 h=$3 scheme=$4 out=$5
   shift 5
-  "$chrome" --headless --disable-gpu --no-first-run --no-default-browser-check \
+  status=0
+  run_chrome --headless --disable-gpu --no-first-run --no-default-browser-check \
     --hide-scrollbars --disable-lcd-text --force-device-scale-factor=1 \
     --user-data-dir="$tmp/profile" --window-size="$w,$h" \
     --blink-settings=preferredColorScheme="$scheme" "$@" \
-    --screenshot="$out" "$url" >/dev/null 2>&1 || true
-  if [ ! -s "$out" ]; then
-    echo "render.sh: Chrome did not draw $url" >&2
-    exit 1
+    --screenshot="$out" "$url" >"$tmp/chrome.log" 2>&1 || status=$?
+  if [ -s "$out" ]; then
+    return 0
   fi
+  echo "render.sh: Chrome did not draw $url (exit status $status)" >&2
+  if [ "$status" -eq 124 ]; then
+    echo "render.sh: Chrome was still running after $limit seconds, so it was stopped" >&2
+  fi
+  # Chrome puts a socket in TMPDIR, and the path of a socket can only be about
+  # 100 bytes long. With a long TMPDIR, Chrome crashes and prints nothing.
+  tmpdir=${TMPDIR:-/tmp}
+  if [ "$status" -gt 128 ] && [ "${#tmpdir}" -gt 60 ]; then
+    echo "render.sh: Chrome crashed. TMPDIR is ${#tmpdir} characters long, and" \
+      "Chrome crashes when it is longer than about 60. Try: TMPDIR=/tmp sh $0" >&2
+  fi
+  if [ -s "$tmp/chrome.log" ]; then
+    echo "render.sh: the last lines Chrome printed:" >&2
+    tail -n 40 "$tmp/chrome.log" >&2
+  else
+    echo "render.sh: Chrome printed nothing" >&2
+  fi
+  exit 1
 }
 
 shot "file://$here/social.html" 1200 630 0 "$tmp/social.png"
