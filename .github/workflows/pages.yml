@@ -27,7 +27,7 @@ jobs:
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
-          # Only site/ is published. README.md and this workflow stay out.
+          # Only site/ is published, so README.md and images/ stay out.
           path: site
           # Also publish files and folders whose names start with a dot,
           # such as .well-known/security.txt. Without this line the

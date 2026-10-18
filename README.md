@@ -16,7 +16,7 @@ Plain HTML, one stylesheet, no build step, no JavaScript, no external fonts, no 
 | `site/social.png` | the 1200 x 630 picture that link previews show, for example in Slack, LinkedIn, X or Mastodon |
 | `site/robots.txt` | tells search engines they may read the whole site, and where the sitemap is |
 | `site/sitemap.xml` | the list of pages for search engines. The site has one page. |
-| `images/` | the sources of the three PNG files above, and `render.sh`, which draws them (see Images) |
+| `images/` | `social.html` and `icon.html`, the sources of `social.png` and `apple-touch-icon.png`, and `render.sh`, which draws all three PNG files above. `favicon.png` is drawn from `site/favicon.svg` (see Images). |
 | `.github/workflows/pages.yml` | publishes `site/` to Pages on every push to `main` |
 
 The wording is drawn from the code repository's `README.md`, `docs/security.md`, `docs/protocol.md`, `docs/signaling.md` and `examples/`. When those change, change the page; the site must not claim anything the docs do not.
@@ -25,11 +25,11 @@ Some of the wording appears more than once. The `description` and `og:descriptio
 
 ## Link previews
 
-The `og:` lines (Open Graph tags) and the `twitter:card` line in the head of `index.html` tell Slack, LinkedIn, X, Mastodon and other apps which title, text and picture to show when someone shares a link to the site. X reads the `og:` lines too; `twitter:card` asks it to show the large picture. The picture must be a full `https://` address. `rel="canonical"` tells search engines the one address of the page.
+The `og:` lines (Open Graph tags) and the `twitter:card` line in the head of `index.html` tell Slack, LinkedIn, X, Mastodon and other apps which title, text and picture to show when someone shares a link to the site. X reads the `og:` lines too, `og:image:alt` included. That line describes the picture for people who cannot see it. `twitter:card` asks X to show the large picture, and no other `twitter:` lines are needed. The picture must be a full `https://` address. `rel="canonical"` tells search engines the one address of the page.
 
 ## Images
 
-The three PNG files in `site/` are drawn from sources in `images/`:
+`images/render.sh` draws the three PNG files in `site/`: `social.png` from `images/social.html`, `apple-touch-icon.png` from `images/icon.html` and `favicon.png` from `site/favicon.svg`. To draw them again:
 
 ```sh
 sh images/render.sh
