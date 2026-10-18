@@ -1,4 +1,4 @@
-# Deploys the site to GitHub Pages on every push to main.
+# Publishes the site/ directory to GitHub Pages on every push to main.
 
 name: pages
 
@@ -23,10 +23,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v7
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
-          path: .
+          # Only site/ is published. README.md and this workflow stay out.
+          path: site
+          # Also publish files and folders whose names start with a dot,
+          # such as .well-known/security.txt. Without this line the
+          # upload leaves them out.
+          include-hidden-files: true
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
